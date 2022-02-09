@@ -1,0 +1,42 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Liste des livres{% endblock %}
+
+{% block body %}
+    <h1>Liste des livres</h1>
+    <a href="{{ path('admin_book_new') }}" class="btn btn-success mb-3">Nouveau</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Id</th>
+                <th>Titre</th>
+                {#<th>Description</th>#}
+                <th>Mise a jour le</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td><img src="{{ asset ('images/livres/' ~ book.imageName)}}" alt="" class="img-list"></td>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                {#<td>{{ book.description }}</td>#}
+                <td>{{ book.updatedAt ? book.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+                <td class="text-end">
+                    <a href="{{ path('admin_book_show', {'id': book.id}) }}" class="btn btn-primary me-md-2 mb-2"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('admin_book_edit', {'id': book.id}) }}"class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun livres dans la base de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

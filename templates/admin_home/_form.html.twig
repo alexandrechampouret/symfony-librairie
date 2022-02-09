@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    {{ form_row(form.title) }}
+<button type="button" class="add_item_link btn btn-success" data-collection-holder-class="articles">Ajouter un article</button>
+    {# the data-index attribute is required for the JavaScript code below #}
+    <ul class="articles"
+    data-index="{{ form.articles|length > 0 ? form.articles|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.articles.vars.prototype)|e('html_attr') }}"
+    ></ul>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,19 +1,71 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{#FONT AWESOME#}
+		<link
+		rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+		{# IMPORT BOOTSTARP#}
+		<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+		{#CUSTOM CSS#}
+		<link rel="stylesheet" href="{{ asset('css/style.css') }}"> {% block stylesheets %}{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+
+		</head>
+		<body>
+			<!--- NAVBAR -->
+
+			<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="{{ path('home') }}">Librairie</a>
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav w-100">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="{{ path('home') }}">
+									<i class="fas fa-house-user"></i>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('book') }}">
+									<i class="fas fa-book-reader"></i>Livre</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('author') }}">Auteurs</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Contact</a>
+							</li>
+							<li class="nav-item ms-auto">
+                                {#Si on est pas connecté on met en place un bouton de connexion sinon on met en place un bouton deconnexion#}
+                                
+                                {% if is_granted('ROLE_USER') %}
+								<div class="d-flex ">
+									<a href="{{ path('profile') }}" class="link pt-2" title="mon compte"><i class="far fa-user"></i></a>
+									<a class="nav-link" href="{{ path('app_logout') }} "title="Se Déconnecter"><i class="fas fa-sign-out-alt"></i></a>
+								</div>
+                                {% else %}
+                                <a class="nav-link" href="{{ path('app_login') }} "title="Se Connecter"><i class="fas fa-sign-in-alt"></i></a>
+                                {% endif %} 
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+			<div class="container bg-white shadow py-2"> {% block body %}{% endblock %}
+				</div>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
+				{% block javascripts %}{% endblock %}
+			</body>
+		</html>

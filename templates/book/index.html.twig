@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NOS Livres{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between">
+<h1>Nos Catégories</h1>
+<a href="{{ path('book-all') }}" class="text-dark">Voir tous les livres</a>
+</div>
+
+{% if categories is not null and categories|length > 0 %}
+    {% for category in categories %}
+    <section>
+        <h2 class="bg-dark text-light px-2 py-1">{{ category.title }}</h2>
+        <article class="text-justify">{{ category.description|raw }}</article>
+        {% if category.books|length > 0 %}
+            <div class="row row-book mt-2 mb-4">
+            {% for book in category.books|raw %}
+            <div class="col-6 col-md-3 col-xl-2">
+                <a href="{{ path('book-detail', {'id': book.id}) }}">
+                    <img src="{{ asset('images/livres/' ~ book.imageName) }}" alt="{{ book.title }}" class="img-fluid">
+                </a>
+                {#si l'utilisateur est connécter on affiche un bouton pour ajouter le livre dans sa liste #}
+                {% if is_granted('ROLE_USER') %}
+                    {% if book not in app.user.books %}
+                    <i class="fas fa-heart bt-list" title="Ajouter a ma liste" data-bookid="{{book.id}} "></i>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endfor %}
+            </div>
+        {% else %}
+        <p>Nous n'avons pas de livre dans cette catégorie </p>
+        {% endif %}
+    </section>
+    {% endfor %}
+{% else %}
+<p> Il n'y a pas de livre dans la BDD</p>
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+//Avec le selecteur universel de jQuery $() on récupére tout les objet aillant la class bt-list afin de leurs a jouter un ecouteurs d'événement click
+$('.bt-list').on("click", function(){
+    //on recupére la valeur de l'attribut data-bookid de l'objet cliquer 
+    var bookid = $(this).attr('data-bookid');
+    var currentBt = $(this);
+    // On met en place une requête asynchrone avec ajax 
+    $.ajax({
+        url: '/user/addbook',
+        type: 'POST',
+        data: 'id='+bookid
+    }).done(function (response) {
+        // deux facon psossible 
+        //$(currentBt).css("display", "none");
+        $(currentBt).fadeOut();
+    });
+});
+</script>
+{% endblock %}

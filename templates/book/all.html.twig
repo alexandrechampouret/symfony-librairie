@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tous nos Livres
+{% endblock %}
+
+{% block body %}
+	<h1>Tous nos Livres</h1>
+    <div>
+    {# FROM REQUETE CHANGEMENT DE PAGE #}
+    <form action="{{ path('book-search')}}" method="post" class="d-flex mb-3">
+    <input type="text" name="search" placeholder="Rechercher un titre" class="form-control me-3">
+    <button type="submit" class="btn btn-dark"><i class="fas fa-search"></i></button>
+    </form>
+    {# FROM ASYNCHRONE #}
+    <form action="{{ path('book-search')}}" method="post" class="d-flex mb-3" id="form-asynch">
+    <input type="text" name="search" placeholder="Rechercher un titre" class="form-control me-3">
+    <button type="submit" class="btn btn-dark"><i class="fas fa-search"></i></button>
+    </form>
+    </div>
+	{% if books is not null and books|length > 0 %}
+		<div class="row">
+			{% for book in books %}
+				<div class="col-12 col-md-3 col-xl-2">
+					<div class="card">
+						<img src=" {{ asset ('images/livres/' ~ book.imageName)}} " alt=" {{ book.title }} " class="card-img-top">
+						<div class="card-body">
+							<h5 class="card-title text-center">{{ book.title|capitalize}}
+                            </h5>
+							<a href=" {{ path('book-detail', {'id': book.id} )}} " class="btn btn-dark w-100">Voir le detail</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<p>Aucun livre disponible</p>
+	{% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $("#form-asynch").on("submit", function (event))
+        {
+            event.preventDefault();
+            // On met en place une requete AJAX
+            $.ajax({
+                url: 'livres/asynch',
+                type:'post',
+                data: $("#form-asynch").serialize()
+
+            })
+            .done(function(response){
+                //console.log(response);
+                $('#contenu').html(response);
+            })
+            .fail(function(error){
+                console.log("error=>", error);
+            })
+        }
+    </script>
+
+{% endblock %}

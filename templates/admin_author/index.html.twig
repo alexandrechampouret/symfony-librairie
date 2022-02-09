@@ -1,0 +1,49 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Liste des auteurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des auteurs</h1>
+    <a href="{{ path('admin_author_new') }}" class="btn btn-success mb-3">Nouveau</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Pseudo</th>
+                {# <th>Birthdate</th> #}
+                {# <th>DateOfDeath</th> #}
+                {# <th>Description</th> #}
+                
+                <th>Mise à jour le </th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for author in authors %}
+            <tr>
+                <td><img src="{{ asset('images/auteurs/' ~ author.imageName) }}" alt="" class="img-list"></td>
+                <td>{{ author.id }}</td>
+                <td>{{ author.name }}</td>
+                <td>{{ author.firstname }}</td>
+                <td>{{ author.pseudo }}</td>
+                {# <td>{{ author.birthdate ? author.birthdate|date('Y-m-d') : '' }}</td> #}
+                {# <td>{{ author.dateOfDeath ? author.dateOfDeath|date('Y-m-d') : '' }}</td> #}
+                {# <td>{{ author.description }}</td> #}
+                <td>{{ author.updatedAt ? author.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+                <td class="text-end">
+                    <a href="{{ path('admin_author_show', {'id': author.id}) }}" class="btn btn-primary me-md-2 mb-2 mb-md-0"><i class="align-middle" data-feather="eye"></i></a>
+                    <a href="{{ path('admin_author_edit', {'id': author.id}) }}" class="btn btn-success"><i class="align-middle" data-feather="edit-2"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Pas d'auteur dans la base de données</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

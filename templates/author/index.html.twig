@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Auteurs{% endblock %}
+
+{% block body %}
+<h1>Nos Auteurs</h1>
+<section class="row">
+{% if authors is not null and authors|length > 0 %}
+    {% for author in authors %}
+    <div class="col-12 col-md-3 col-xl-2">
+    <div class="card">
+        <img src="{{ asset ('images/auteurs/' ~ author.imageName)}}" class="card-img-top" alt="{{ author.firstname|title ~ " " ~ author.name|title }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ author.firstname|title ~ " " ~ author.name|title }}</h5>
+            <a href="{{ path('author-detail', {'id' : author.id })}}" class="btn btn-dark btn-sm w-100">Voir la fiche </a>
+    </div>
+</div>
+    </div>
+    {% endfor %}
+{% else %}
+<p>Il n'y a pas d'auteurs dans la BDD!!!</p>
+{% endif %}
+</section>
+{% endblock %}

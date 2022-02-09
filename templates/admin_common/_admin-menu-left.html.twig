@@ -1,0 +1,70 @@
+<nav id="sidebar" class="sidebar js-sidebar">
+	<div class="sidebar-content js-simplebar">
+		<a class="sidebar-brand" href="{{ path('admin') }}">
+			<span class="align-middle">Librairie Admin
+			</span>
+		</a>
+		<ul class="sidebar-nav">
+			<li class="sidebar-item active">
+				<a class="sidebar-link" href="{{ path('admin') }}">
+					<i class="align-middle" data-feather="sliders"></i>
+					<span class="align-middle">Dashboard</span>
+				</a>
+			</li>
+			<li class="sidebar-header">
+				Utilisateur
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="pages-profile.html">
+					<i class="align-middle" data-feather="user"></i>
+					<span class="align-middle">Profile</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="pages-sign-in.html">
+					<i class="align-middle" data-feather="log-in"></i>
+					<span class="align-middle">Sign In</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="pages-sign-up.html">
+					<i class="align-middle" data-feather="user-plus"></i>
+					<span class="align-middle">Sign Up</span>
+				</a>
+			</li>
+			<li class="sidebar-header">
+				CONTENUS
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ path('admin_category_index')}}">
+					<i class="align-middle" data-feather="copy"></i>
+					<span class="align-middle">Categorie</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ path('admin_book_index')}}">
+					<i class="align-middle" data-feather="book"></i>
+					<span class="align-middle">Livres</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ path('admin_author_index')}}">
+					<i class="align-middle" data-feather="pen-tool"></i>
+					<span class="align-middle">Auteurs</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ path('admin_home_index')}}">
+					<i class="align-middle" data-feather="home"></i>
+					<span class="align-middle">Home</span>
+				</a>
+			</li>
+			<li class="sidebar-item">
+				<a class="sidebar-link" href="{{ path('admin_article_home_index')}}">
+					<i class="align-middle" data-feather="file-text"></i>
+					<span class="align-middle">Article Home</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

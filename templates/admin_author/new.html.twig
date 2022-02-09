@@ -1,0 +1,9 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Nouveau Auteur{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_author_index') }}"class="btn btn-dark">Retour a la liste</a>
+    <h1>Nouveau Auteur</h1>
+    {{ include('admin_author/_form.html.twig') }}
+{% endblock %}

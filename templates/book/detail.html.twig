@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block body %}
+    <section class="row">
+        <div class="col-12 col-md-4 col-xl-3 order-2 order-md-1 order-xl-1 mt-4 mt-md-0">
+            {% if book.imageName is not null %}
+            <img src="{{ asset ('images/livres/' ~ book.imageName) }}" alt="" class="img-fluid">
+            {% else %}
+            <img src="{{ asset ('images/livres/book-default.jpg' ~ book.imageName) }}" alt="" class="img-fluid">
+            {% endif %}
+            <div class="d-md-none text-center">
+            <a href="{{ path('author-detail', {'id': book.author.id }) }}" class="btn btn-dark btn-sm mt-3 ">Voir la fiche de l'auteur </a>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-xl-9 order-1 order-md-2 order-xl-2">
+            <h1>{{ book.title }}</h1>
+            <p>Catégorie: {{ book.category.title }}</p>
+            {% if book.description is not null %}
+            <article>{{ book.description|raw }}</article>
+            {% endif %}
+            <div class="d-none d-md-block">
+            <a href="{{ path('author-detail', {'id': book.author.id }) }}" class="btn btn-dark btn-sm mt-3 ">Voir la fiche de l'auteur </a>
+            </div>
+            
+        </div>
+    </section>
+
+{% endblock %}

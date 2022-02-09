@@ -1,0 +1,35 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}ArticleHome index{% endblock %}
+
+{% block body %}
+    <h1>ArticleHome index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Article</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article_home in article_homes %}
+            <tr>
+                <td>{{ article_home.id }}</td>
+                <td>{{ article_home.article }}</td>
+                <td>
+                    <a href="{{ path('admin_article_home_show', {'id': article_home.id}) }}">show</a>
+                    <a href="{{ path('admin_article_home_edit', {'id': article_home.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_article_home_new') }}">Create new</a>
+{% endblock %}
